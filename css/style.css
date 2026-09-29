@@ -368,7 +368,6 @@ a:focus-visible {
 .solutions-grid .reveal:nth-child(2) { transition-delay: .08s; }
 .solutions-grid .reveal:nth-child(3) { transition-delay: .16s; }
 .solutions-grid .reveal:nth-child(4) { transition-delay: .24s; }
-.solutions-grid .reveal:nth-child(5) { transition-delay: .32s; }
 .pillars-grid .reveal:nth-child(2) { transition-delay: .08s; }
 .pillars-grid .reveal:nth-child(3) { transition-delay: .16s; }
 .pillars-grid .reveal:nth-child(4) { transition-delay: .24s; }

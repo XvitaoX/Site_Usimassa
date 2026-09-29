@@ -99,3 +99,51 @@
 - [x] Menu mobile, formulário e modal de vendedores da V1 continuam funcionando sem regressão
 - [ ] Mapa, WhatsApp e links externos em ambiente com internet real — mesma limitação já registrada na V1, segue pendente de confirmação pelo Codex ou por Victor.
 - [ ] Teste em navegador/celular real (esta rodada também usou apenas Chromium automatizado).
+
+---
+
+# V2.1 — Reorganização e preparação para deploy
+
+- **Feito por:** Claude, em 29/09/2026, a pedido do Victor ("reorganização... pronto para o deploy... tudo que o site precisa na pasta site, estrutura de pastas corretas e ajustar pequenos bugs").
+- **Nenhuma mudança de conteúdo, texto ou layout visível** — esta rodada foi só organização, arquivos de suporte ao deploy e pequenas correções técnicas. Testado por completo (Chromium, desktop + mobile) sem regressão.
+
+## O que mudou em `site/`
+
+**Arquivos novos (padrão para deploy profissional):**
+- `favicon.ico` — ícone na raiz, para navegadores/robôs que pedem `/favicon.ico` direto (além dos ícones PNG que já existiam via `<link>`).
+- `robots.txt` — libera indexação e aponta para o `sitemap.xml`.
+- `sitemap.xml` — mapa do site (1 URL, já que é página única). Tem um `TODO` marcando onde trocar pelo domínio definitivo.
+- `.gitignore` — ignora arquivos de sistema/editor (`.DS_Store`, `Thumbs.db` etc.) para quando o histórico git local for usado.
+- `README.md` (dentro de `site/`) — como publicar a pasta, estrutura de arquivos e o que falta decidir antes de ir ao ar.
+- Também criei um `README.md` na raiz do projeto (fora de `site/`) explicando o que é cada pasta (`site/`, `docs/`, `imagens/`, backups).
+
+**`index.html`:**
+- Adicionado `<meta name="theme-color" content="#b5121b">` (cor da barra do navegador no mobile).
+- Adicionado dado estruturado `LocalBusiness` (JSON-LD) com nome, endereço, telefone, e-mail e Instagram — ajuda buscadores a exibir o negócio corretamente. Usei só informações que já estavam na própria página.
+- Adicionado `<link rel="icon" href="favicon.ico">` como fallback.
+
+**`css/style.css`:**
+- Removida uma regra CSS órfã (delay de animação para um 5º card de "Soluções" que não existe mais desde a remoção do card "Brita 0 e brita 1").
+
+## Limpeza de imagens órfãs da V1
+
+Havia fotos da V1 (`frota`, `bombeamento`, `obra-ampla`, `operacao`, `presenca-local` — cada uma em 4 variantes: jpg/webp × tamanho normal/800px) que não são mais usadas desde a troca pela galeria da V2, além de duas variantes "thumb" da foto de destaque da galeria (`g1-frota-thumb.jpg`/`.webp`) que também nunca chegaram a ser usadas (a foto em destaque sempre usa a versão "large"). Ao todo eram 22 arquivos órfãos.
+
+**18 desses 22 arquivos foram movidos para a lixeira do Google Drive** (recuperável por lá por um tempo, caso precise de algum). **4 arquivos não puderam ser removidos automaticamente** — uma trava de segurança do Claude bloqueou a exclusão em lote depois de já ter processado a maior parte:
+- `img/bombeamento.jpg`
+- `img/bombeamento.webp`
+- `img/gallery/g1-frota-thumb.jpg`
+- `img/gallery/g1-frota-thumb.webp`
+
+Nenhum desses 4 é referenciado em `index.html`, `css/style.css` ou `js/main.js` — continuam órfãos e seguros para apagar quando Victor quiser (manualmente pelo Google Drive, ou pedindo para o Claude tentar de novo em uma próxima sessão).
+
+## Verificação desta rodada (Chromium automatizado, desktop 1440px + mobile 390px)
+
+- [x] Sem erros de console (desktop e mobile)
+- [x] Sem rolagem horizontal (desktop e mobile)
+- [x] Sem nenhuma requisição de arquivo falhando (favicon, imagens, scripts, CSS)
+- [x] Dado estruturado (JSON-LD) validado como JSON correto
+- [x] `sitemap.xml` validado como XML correto
+- [x] Modal de vendedor, formulário de orçamento, galeria/lightbox e menu mobile continuam funcionando sem regressão
+- [x] Dimensões declaradas (`width`/`height`) de todas as imagens principais conferem com o arquivo real (sem risco de deslocamento de layout)
+- [ ] Mapa, WhatsApp e links externos com internet real — mesma limitação já registrada, segue pendente.

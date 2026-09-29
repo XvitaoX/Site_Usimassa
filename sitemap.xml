@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TODO: substituir "https://SEU-DOMINIO-AQUI" pelo domínio definitivo assim que
+  ele for registrado (ver STATUS_PROJETO.md > Pendências / dúvidas).
+  Site de página única — um único <url> é suficiente.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://SEU-DOMINIO-AQUI/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
